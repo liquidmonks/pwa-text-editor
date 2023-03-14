@@ -11,8 +11,8 @@
     "start:dev": "concurrently \"cd server && npm run server\" \"cd client && npm run dev\"",
     "start": "npm run build && cd server && node server.js",
     "server": "cd server nodemon server.js --ignore client",
-    "build": "cd ./client && npm install && npm run build",
-    "install": "concurrently \"cd server && npm install\" \"cd client && npm install && npm  install --save-dev webpack-pwa-manifest\"",
+    "build": "cd ./client && npm  install --save-dev webpack-pwa-manifest && npm run build",
+    "install": "concurrently \"cd server && npm install\" \"cd client && npm install\"",
     "client": "cd client && npm start"
   },
   "keywords": [],
