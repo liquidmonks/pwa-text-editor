@@ -1,0 +1,85 @@
+<div class="search-page container mx-auto p-3">
+    <form id="search-form" action="/search" method="post"
+        class="flex flex-col items-center w-full max-w-[30rem] mx-auto pt-5">
+        <label class="text-lg mb-2">Search</label>
+        <input class="border p-2 text-center rounded focus:ring-2 ring-indigo-400 outline-none w-full" name="query"
+            value="{{query}}" placeholder="Enter program name or keyword" required>
+        <input type="hidden" name="timestamp" id="timestamp">
+    </form>
+
+    {{#if message}}
+    <p class="mt-10 mb-2 text-center">Results</p>
+    <div class="flex items-center space-x-2 mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-indigo-400">
+            <path
+                d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+        </svg>
+        <span>(check to favorite)</span>
+    </div>
+    {{#if count}}
+    <div class="flex flex-col space-y-3">
+        {{#each results as |r|}}
+        <div class="group">
+            <input id="{{r.id}}" type="checkbox" onchange="addToFavorites(event,{{stringify r}})">
+            <label for="{{r.id}}">{{r.label}}</label>
+        </div>
+        {{/each}}
+    </div>
+    {{else}}
+    <p class="text-center">no results matches your searches</p>
+    {{/if}}
+    {{/if}}
+
+    <p class="mt-10 mb-2 text-center">Favorites</p>
+    <div id="favorites"></div>
+</div>
+
+<script>
+    const form = document.getElementById('search-form')
+    const timestamp = document.getElementById('timestamp')
+    const favoritesList = document.getElementById('favorites')
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        timestamp.value = Date.now()
+        form.submit()
+    })
+
+    function renderFavorites() {
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || []
+        favoritesList.innerHTML = !favorites.length ? 'Your favorites is empty' : `
+    <div class="flex flex-col space-y-3">
+       ${favorites.map(f =>
+            `<div class="group">
+            <input id="${f.id}" type="checkbox" checked onchange="removeFromFavorites(event)">
+            <label for="${f.id}">${f.label}</label>
+        </div>`
+        ).join('')}
+    </div>
+    `
+    }
+
+    window.onload = () => {
+        timestamp.value = Date.now()
+        renderFavorites()
+    }
+
+
+    function addToFavorites(e, r) {
+        const checked = e.target.checked
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || []
+
+        favorites = checked ? [...favorites, r] : favorites.filter(f => f.id !== r.id)
+
+        localStorage.setItem('favorites', JSON.stringify(favorites))
+        renderFavorites()
+    }
+
+    function removeFromFavorites(e) {
+        let favorites = JSON.parse(localStorage.getItem('favorites'))
+        localStorage.setItem('favorites', JSON.stringify(favorites.filter(f => f.id !== e.target.id)))
+        renderFavorites()
+    }
+
+
+</script>

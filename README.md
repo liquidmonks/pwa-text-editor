@@ -1,2 +1,2 @@
 # tvGuide
-TV Guide Search Tool
+Local/Remote TV Guide XML Search Tool
