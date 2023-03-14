@@ -17,7 +17,7 @@ const initdb = async () =>
 
 // Define an async function to add data to the database
 export const putDb = async (content) => {
-  console.error("putDb not implemented");
+  console.log("PUT to the database");
 
   // Open the 'jate' database
   const contactDb = await openDB("jate", 1);
@@ -33,7 +33,7 @@ export const putDb = async (content) => {
 
   // Wait for the request to complete and log the result
   const result = await request;
-  console.log("🚀 - data saved tot he database", result);
+  console.log("🚀 - data saved to the database", result);
 };
 
 // Define an async function to retrieve data from the database
