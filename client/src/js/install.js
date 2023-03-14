@@ -1,33 +1,37 @@
-// Get a reference to the install button element in the DOM.
+// Get the button element by its ID
 const butInstall = document.getElementById("buttonInstall");
 
-// Listen for the beforeinstallprompt event and store the event object in a global variable.
+// Listen for the beforeinstallprompt event
 window.addEventListener("beforeinstallprompt", (event) => {
+  // Save the event in a deferredPrompt property of the window object
   window.deferredPrompt = event;
-  // Show the install button.
+
+  // Show the button to install the app
   butInstall.classList.toggle("hidden", false);
 });
 
-// Listen for clicks on the install button.
+// Listen for a click on the button
 butInstall.addEventListener("click", async () => {
+  // Get the saved deferredPrompt
   const promptEvent = window.deferredPrompt;
 
-  // If there is no event object, do nothing.
+  // If deferredPrompt is null, do nothing
   if (!promptEvent) {
     return;
   }
 
-  // Show the install prompt.
+  // Show the installation prompt
   promptEvent.prompt();
 
-  // Clear the event object.
+  // Set deferredPrompt to null
   window.deferredPrompt = null;
 
-  // Hide the install button.
+  // Hide the button to install the app
   butInstall.classList.toggle("hidden", true);
 });
 
-// Listen for the appinstalled event and clear the event object.
+// Listen for the appinstalled event
 window.addEventListener("appinstalled", (event) => {
+  // Set deferredPrompt to null
   window.deferredPrompt = null;
 });

@@ -1,17 +1,15 @@
-// Import the warmStrategyCache recipe from workbox-recipes to prime the runtime cache with assets.
+// Import required Workbox libraries
 const { warmStrategyCache } = require("workbox-recipes");
-
-// Import caching strategies and routing utilities from Workbox.
 const { CacheFirst, StaleWhileRevalidate } = require("workbox-strategies");
 const { registerRoute } = require("workbox-routing");
 const { CacheableResponsePlugin } = require("workbox-cacheable-response");
 const { ExpirationPlugin } = require("workbox-expiration");
 const { precacheAndRoute } = require("workbox-precaching/precacheAndRoute");
 
-// Precache assets specified in the Workbox manifest.
+// Precache and route the resources specified in the manifest file
 precacheAndRoute(self.__WB_MANIFEST);
 
-// Define a CacheFirst strategy for the page cache with plugins to cache responses with status 0 or 200 and expire after 30 days.
+// Create a CacheFirst strategy for page requests
 const pageCache = new CacheFirst({
   cacheName: "page-cache",
   plugins: [
@@ -24,16 +22,16 @@ const pageCache = new CacheFirst({
   ],
 });
 
-// Warm the runtime cache with specified URLs using the pageCache strategy.
+// Warm the cache with specified URLs using the pageCache strategy
 warmStrategyCache({
   urls: ["/index.html", "/"],
   strategy: pageCache,
 });
 
-// Register the pageCache strategy for navigate requests.
+// Register the pageCache strategy for navigate requests
 registerRoute(({ request }) => request.mode === "navigate", pageCache);
 
-// Define a StaleWhileRevalidate strategy for the asset cache with plugins to cache responses with status 0 or 200.
+// Set up asset cache using a StaleWhileRevalidate strategy
 registerRoute(
   ({ request }) => ["style", "script", "worker"].includes(request.destination),
   new StaleWhileRevalidate({

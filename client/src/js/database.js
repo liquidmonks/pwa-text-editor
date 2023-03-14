@@ -1,7 +1,6 @@
 import { openDB } from "idb";
 
-// Initializes the 'jate' database with a single object store named 'jate'.
-// The object store has an auto-incrementing key path with the property name 'id'.
+// Initialize the database
 const initdb = async () =>
   openDB("jate", 1, {
     upgrade(db) {
@@ -14,7 +13,7 @@ const initdb = async () =>
     },
   });
 
-// Adds a new object to the 'jate' object store with a key of 1 and the provided content.
+// Save content to the database
 export const putDb = async (content) => {
   console.log("Put to the database");
 
@@ -30,7 +29,7 @@ export const putDb = async (content) => {
   console.log("🚀 - data saved to the database", result);
 };
 
-// Retrieves the object with key 1 from the 'jate' object store and returns its 'value' property.
+// Retrieve content from the database
 export const getDb = async () => {
   const jateDb = await openDB("jate", 1);
   const tx = jateDb.transaction("jate", "readonly");
@@ -40,5 +39,5 @@ export const getDb = async () => {
   return result?.value;
 };
 
-// Initializes the 'jate' database when the module is imported.
+// Call initdb function to initialize the database
 initdb();
