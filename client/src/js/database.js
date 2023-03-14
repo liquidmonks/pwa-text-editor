@@ -1,6 +1,5 @@
 import { openDB } from "idb";
 
-// Initialize the database
 const initdb = async () =>
   openDB("jate", 1, {
     upgrade(db) {
@@ -13,7 +12,7 @@ const initdb = async () =>
     },
   });
 
-// Save content to the database
+// TODO: Add logic to a method that accepts some content and adds it to the database
 export const putDb = async (content) => {
   console.log("Put to the database");
 
@@ -28,8 +27,7 @@ export const putDb = async (content) => {
   const result = await request;
   console.log("🚀 - data saved to the database", result);
 };
-
-// Retrieve content from the database
+// TODO: Add logic for a method that gets all the content from the database
 export const getDb = async () => {
   const jateDb = await openDB("jate", 1);
   const tx = jateDb.transaction("jate", "readonly");
@@ -39,5 +37,4 @@ export const getDb = async () => {
   return result?.value;
 };
 
-// Call initdb function to initialize the database
 initdb();
