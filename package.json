@@ -23,7 +23,7 @@
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
     "if-env": "^1.0.4",
-    "serve": "^13.0.2"
+    "serve": "^14.2.0"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
