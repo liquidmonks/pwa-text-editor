@@ -12,13 +12,10 @@ J.A.T.E is a Progressive Web Application (PWA) that runs in the browser, offline
     - [User Story](#user-story)
     - [Acceptance Criteria](#acceptance-criteria)
   - [Installation](#installation)
-  - [License](#license)
+  - [🔗 Deployed Site Link](#-deployed-site-link)
   - [Technologies Employed](#technologies-employed)
-  - [Future Development](#future-development)
-  - [Contributing](#contributing)
-  - [Tests](#tests)
   - [Authors](#authors)
-  - [License](#license-1)
+  - [License](#license)
 
 ## Usage
 ### User Story
@@ -72,7 +69,8 @@ The following animation demonstrates the application's functionality:
 
 
 
-![J A T E Demo](https://user-images.githubusercontent.com/107900180/206565673-960dc4c8-1d0e-447e-9606-88ef539e1031.gif)
+## 🔗 Deployed Site Link
+[![Click for Website](https://img.shields.io/badge/website-Click-yellow)](https://pwanotez.herokuapp.com/)
 
 </br>
 
@@ -90,11 +88,6 @@ The following image shows the application's IndexedDB storage:
 ![idb](https://user-images.githubusercontent.com/107900180/206567448-c4d0939a-4690-4b40-a597-476b1e1c0c19.png)
 
 
-## License
-This project is licensed under the MIT license.
-
-A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.<p/>For more information visit [MIT Licensing](https://choosealicense.com/licenses/mit/).
-
 ## Technologies Employed
 * Mini-CSS-Extract Plugin
 * Webpack+Workbox
@@ -104,17 +97,6 @@ A short and simple permissive license with conditions only requiring preservatio
 * Express
 * NodeJS
 * Babel
-
-
-## Future Development
-We would like to continue to add the following functionality to our application:
-- Overhaul CSS
-
-## Contributing
-We'd love for you to contribute! In order to do so, fork this repository. Your pull request will need approval in order to merge to ```main```. <br/><br/> Take a look at our [Future Development](#future-development) section to see what we are looking to expand on (implemented features are denoted with a &check;). Feel free to implement your own ideas and merge request!
-
-## Tests
-No tests were run to complete this CMS.
 
 
 ## Authors
