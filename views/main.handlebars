@@ -1,10 +1,13 @@
 <div class="search-page container mx-auto p-3">
     <form id="search-form" action="/search" method="post"
-        class="flex flex-col items-center w-full max-w-[30rem] mx-auto pt-5">
+        class="flex flex-col items-center w-full max-w-[40rem] mx-auto pt-5">
         <label class="text-lg mb-2">Search</label>
-        <input class="border p-2 text-center rounded focus:ring-2 ring-indigo-400 outline-none w-full" name="query"
-            value="{{query}}" placeholder="Enter program name or keyword" required>
-        <input type="hidden" name="timestamp" id="timestamp">
+        <div class="flex gap-2 w-full">
+            <input class="border p-2 text-center rounded focus:ring-2 ring-indigo-400 outline-none w-full" name="query"
+                value="{{query}}" placeholder="Enter program name or keyword" required>
+                <button class="bg-indigo-500 text-white p-2 rounded hover:bg-indigo-600">Search</button>
+        </div>
+        <input type="hidden" name="timezone" id="timezone">
     </form>
 
     {{#if message}}
@@ -37,11 +40,12 @@
 <script>
     const form = document.getElementById('search-form')
     const timestamp = document.getElementById('timestamp')
+    const timezone = document.getElementById('timezone')
     const favoritesList = document.getElementById('favorites')
 
     form.addEventListener('submit', (e) => {
         e.preventDefault()
-        timestamp.value = Date.now()
+        timezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone
         form.submit()
     })
 
@@ -60,7 +64,6 @@
     }
 
     window.onload = () => {
-        timestamp.value = Date.now()
         renderFavorites()
     }
 

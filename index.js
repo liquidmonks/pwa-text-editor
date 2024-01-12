@@ -8,6 +8,9 @@ const sequelize = require('./db');
 const path = require('path');
 const verified = require('./middlewares/verified');
 const helpers = require('./helpers')
+const cron = require('node-cron');
+const { updateServices } = require('./controllers/service');
+const { query } = require('./db/xuidb')
 
 const app = express()
 app.use(express.json());
@@ -51,13 +54,25 @@ app.get('/verification', (req, res) => {
     res.render('auth/verification')
 })
 
+app.get('/updatefiles', async (req, res) => {
+})
 
 app.use('/auth', require('./controllers/auth'))
 app.use('/search', require('./controllers/search'))
 
-const PORT = process.env.PORT || 5000
-sequelize.sync().then(() => {
-    app.listen(PORT, () => console.log(`App running at port ${PORT}`))
+
+
+// Schedule a task to run every 6 hours
+cron.schedule('0 */6 * * *', () => {
+    console.log('Running task...');
+    updateServices()
 });
+// updateServices()
+
+const PORT = process.env.PORT || 5001
+sequelize.sync()
+    .then(() => {
+        app.listen(PORT, () => console.log(`App running at port ${PORT}`))
+    });
 
 
